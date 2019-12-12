@@ -28,5 +28,5 @@ class Application(Model):
 
 	def save(self, *args, **kwargs):
 		if not self.id:
-			self.api_key = self.generate_new_api_key()
+			self.set_new_api_key()
 		super().save(*args, **kwargs)
