@@ -5,4 +5,3 @@ __version__ = "0.0.1"
 __maintainer__ = "Vladimir Myshkovski"
 __email__ = "vladimirmyshkovski@gmail.com"
 __status__ = "Development"
-

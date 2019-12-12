@@ -12,13 +12,16 @@ from rest_example.applications.models import Application
 def media_storage(settings, tmpdir):
     settings.MEDIA_ROOT = tmpdir.strpath
 
+
 @pytest.fixture
 def user() -> settings.AUTH_USER_MODEL:
     return UserFactory()
 
+
 @pytest.fixture
 def application() -> Application:
     return ApplicationFactory()
+
 
 @pytest.fixture
 def request_factory() -> RequestFactory:
