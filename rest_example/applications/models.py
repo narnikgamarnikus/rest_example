@@ -11,6 +11,9 @@ class Application(Model):
 	title = CharField(max_length=128)
 	api_key = CharField(unique=True, max_length=36)
 
+	def api_key_exists(cls, api_key):
+		return cls.objects.filter(api_key=api_key).exists()
+
 	def generate_new_api_key(self):
 		api_key = str(uuid.uuid4())
 		return api_key.replace('-', '')
