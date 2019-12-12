@@ -15,7 +15,6 @@ pytest-bdd==2.21.0  # https://github.com/pytest-dev/pytest-bdd
 pytest-picked==0.3.0  # https://github.com/anapaulagomes/pytest-picked
 pytest-xdist==1.23.2  # https://github.com/pytest-dev/pytest-xdist
 
-
 # Code quality
 # ------------------------------------------------------------------------------
 flake8==3.7.9  # https://github.com/PyCQA/flake8

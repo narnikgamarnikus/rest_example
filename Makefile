@@ -50,13 +50,13 @@ reset-db-hard:
 	docker-compose -f ${ENVIRONMENT}.yml run --rm django python manage.py migrate
 
 mypy:
-	docker-compose -f ${ENVIRONMENT}.yml run --rm django mypy rc
+	docker-compose -f ${ENVIRONMENT}.yml run --rm django mypy rest_example
 
 flake8:
-	docker-compose -f ${ENVIRONMENT}.yml run --rm django flake8 rc
+	docker-compose -f ${ENVIRONMENT}.yml run --rm django flake8 rest_example
 
 black:
-	docker-compose -f ${ENVIRONMENT}.yml run --rm django black --target-version py36 rc
+	docker-compose -f ${ENVIRONMENT}.yml run --rm django black --target-version py36 rest_example
 
 coverage:
 	docker-compose -f ${ENVIRONMENT}.yml run --rm django coverage run -m py.test
@@ -64,9 +64,9 @@ coverage:
 	docker-compose -f ${ENVIRONMENT}.yml run --rm django coverage html
 
 pre-commit:
-	docker-compose -f ${ENVIRONMENT}.yml run --rm django mypy rc
-	docker-compose -f ${ENVIRONMENT}.yml run --rm django flake8 rc
-	docker-compose -f ${ENVIRONMENT}.yml run --rm django black --target-version py36 rc
+	docker-compose -f ${ENVIRONMENT}.yml run --rm django mypy rest_example
+	docker-compose -f ${ENVIRONMENT}.yml run --rm django flake8 rest_example
+	docker-compose -f ${ENVIRONMENT}.yml run --rm django black --target-version py36 rest_example
 	docker-compose -f ${ENVIRONMENT}.yml run --rm django coverage run -m py.test
 	docker-compose -f ${ENVIRONMENT}.yml run --rm django coverage report
 	docker-compose -f ${ENVIRONMENT}.yml run --rm django coverage html
