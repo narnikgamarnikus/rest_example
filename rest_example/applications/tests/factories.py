@@ -4,7 +4,7 @@ from factory import DjangoModelFactory, Sequence
 
 class ApplicationFactory(DjangoModelFactory):
 
-    title = Sequence(lambda n: 'application-%s' % n)
+    title = Sequence(lambda n: "application-%s" % n)
 
     class Meta:
         model = Application
