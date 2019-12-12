@@ -24,7 +24,6 @@ class Application(Model):
 		while self.__class__.api_key_exists(api_key):
 			api_key = self.generate_new_api_key()
 		self.api_key = api_key
-		self.save()
 
 	def save(self, *args, **kwargs):
 		if not self.id:
