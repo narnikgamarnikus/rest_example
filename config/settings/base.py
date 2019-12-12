@@ -3,6 +3,7 @@ Base settings to build other settings files upon.
 """
 
 import environ
+import datetime
 
 ROOT_DIR = (
     environ.Path(__file__) - 3
@@ -260,6 +261,47 @@ ACCOUNT_ADAPTER = "rest_example.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 SOCIALACCOUNT_ADAPTER = "rest_example.users.adapters.SocialAccountAdapter"
 
-
-# Your stuff...
+# django-rest-auth
 # ------------------------------------------------------------------------------
+# https://django-rest-auth.readthedocs.io/en/latest/configuration.html
+
+REST_AUTH_SERIALIZERS = {
+    "USER_DETAILS_SERIALIZER": "rest_example.users.serializers.UserDetailSerializer"
+}
+
+REST_USE_JWT = True
+
+JWT_AUTH = {
+    # how long the original token is valid for
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=30),
+
+    # allow refreshing of tokens
+    'JWT_ALLOW_REFRESH': True,
+
+    # this is the maximum time AFTER the token was issued that
+    # it can be refreshed.  exprired tokens can't be refreshed.
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(minutes=300)
+}
+
+# ------------------------------------------------------------------------------
+# django-corsheaders
+# ------------------------------------------------------------------------------
+# https://github.com/ottoyiu/django-cors-headers
+CORS_ORIGIN_WHITELIST = (
+    'django',
+    'localhost'
+)
+
+# django-rest-framework
+# ------------------------------------------------------------------------------
+# https://github.com/encode/django-rest-framework
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',    
+    'PAGE_SIZE': 10
+}

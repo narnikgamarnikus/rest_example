@@ -1,21 +1,41 @@
 from django.conf import settings
-from django.urls import include, path
+from django.urls import reverse_lazy, include, path
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.views.generic import TemplateView
+from django.views.generic import RedirectView
 from django.views import defaults as default_views
+from django.contrib.auth.views import PasswordResetConfirmView
+
+from rest_auth.registration.views import VerifyEmailView
+
+from .routers import urlpatterns as api_urlpatterns
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
-        "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
+        "",
+        RedirectView.as_view(
+            url=reverse_lazy('api-root'),
+            permanent=False
+        )
     ),
-    # Django Admin, use {% url 'admin:index' %}
-    path(settings.ADMIN_URL, admin.site.urls),
-    # User management
-    path("users/", include("rest_example.users.urls", namespace="users")),
-    path("accounts/", include("allauth.urls")),
-    # Your stuff: custom urls includes go here
+    path("api/v1/auth/", include("rest_auth.urls")),
+    path("api/v1/auth/registration/", include("rest_auth.registration.urls")),
+    path("api/v1/", include(api_urlpatterns)),
+    path(
+        "account-confirm-email/",
+        VerifyEmailView.as_view(),
+        name='account_email_verification_sent'
+    ),
+    path(
+        "account-confirm-email/<str:key>/",
+        VerifyEmailView.as_view(),
+        name='account_confirm_email'
+    ),
+    path(
+        'reset/<uidb64>/<token>/',
+        PasswordResetConfirmView.as_view(),
+        name='password_reset_confirm'
+    )
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
