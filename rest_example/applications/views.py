@@ -1,4 +1,4 @@
-from rest_framework.mixins import GenericViewSet
+from rest_framework.viewsets import GenericViewSet
 from rest_framework.decorators import action
 from rest_framework.authentication import get_authorization_header
 from rest_framework.response import Response
