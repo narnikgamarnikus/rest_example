@@ -11,6 +11,7 @@ class Application(Model):
 	title = CharField(max_length=128)
 	api_key = CharField(unique=True, max_length=36)
 
+	@classmethod
 	def api_key_exists(cls, api_key):
 		return cls.objects.filter(api_key=api_key).exists()
 

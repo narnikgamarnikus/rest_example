@@ -9,4 +9,4 @@ class TestApplicationModel:
         assert len(application.api_key) == 32
 
     def test_api_key_exists(self, application):
-        assert application.api_key_exists(api_key_exists.api_key)
+        assert application.__class__.api_key_exists(application.api_key)
