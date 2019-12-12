@@ -1,5 +1,5 @@
 [run]
 include = rest_example/*
-omit = *migrations*, *tests*
+omit = *migrations*, *tests*, *conftest.py*, *__init__.py*
 plugins =
     django_coverage_plugin
