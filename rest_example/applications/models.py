@@ -19,6 +19,13 @@ class Application(Model):
 		api_key = str(uuid.uuid4())
 		return api_key.replace('-', '')
 
+	def set_new_api_key(self):
+		api_key = self.generate_new_api_key()
+		while self.__class__.api_key_exists(api_key):
+			api_key = self.generate_new_api_key()
+		self.api_key = api_key
+		self.save()
+
 	def save(self, *args, **kwargs):
 		if not self.id:
 			self.api_key = self.generate_new_api_key()
