@@ -27,7 +27,7 @@ class TestApplicationView(APIView):
         api_key = request.META.get("HTTP_API_KEY", None)
         instance = get_object_or_None(Application, api_key=api_key)
         if instance:
-            serializer = self.get_serializer(instance)
+            serializer = ApplicationSerializer(instance)
             return Response(serializer.data, status=HTTP_200_OK)
         return Response({"message": "Application not found"}, status=HTTP_404_NOT_FOUND)
 

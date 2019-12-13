@@ -10,6 +10,9 @@ from rest_auth.registration.views import VerifyEmailView
 
 from .routers import urlpatterns as api_urlpatterns
 
+from rest_example.applications.views import TestApplicationView
+
+
 urlpatterns = [
     path(
         "",
@@ -20,6 +23,7 @@ urlpatterns = [
     ),
     path("api/v1/auth/", include("rest_auth.urls")),
     path("api/v1/auth/registration/", include("rest_auth.registration.urls")),
+    path("api/v1/test/", TestApplicationView.as_view()),    
     path("api/v1/", include(api_urlpatterns)),
     path(
         "account-confirm-email/",
