@@ -1,3 +1,5 @@
+from django.shortcuts import get_object_or_404
+
 from rest_framework.views import APIView
 from rest_framework.mixins import (
     CreateModelMixin,
@@ -30,8 +32,8 @@ class TestApplicationView(APIView):
         """
         Return application by api_key in HEADERS.
         """
-    	api_key = request.META.get("HTTP_API_KEY", None)
-    	obj = get_object_or_404(Application, api_key=api_key)
+        api_key = request.META.get("HTTP_API_KEY", None)
+        obj = get_object_or_404(Application, api_key=api_key)
         serializer = ApplicationSerializer(obj)
         return Response(serializer.data, status=HTTP_200_OK)
 
@@ -52,10 +54,10 @@ class ApplicationViewSet(
     permission_classes = [ApplicationAPIKeyPermission]
 
     def get_object(self):
-    	api_key = request.META.get("HTTP_API_KEY", None)
-    	obj = get_object_or_404(Application, api_key=api_key)
-    	self.check_object_permissions(self.request, obj)
-    	return obj
+        api_key = self.request.META.get("HTTP_API_KEY", None)
+        obj = get_object_or_404(Application, api_key=api_key)
+        self.check_object_permissions(self.request, obj)
+        return obj
 
     def list(self, request):
         obj = self.get_object()

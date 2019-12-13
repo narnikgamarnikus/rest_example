@@ -113,7 +113,15 @@ Create new application
 
 ::
  
-  $ curl -X POST -v -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/applications/ -d '{"title": "Hello, World!"}'
+  $ curl -X POST -v -H "Content-Type: application/json" -H http://localhost:8000/api/v1/applications/ -d '{"title": "Hello, World!"}'
+
+
+Test application
+
+::
+
+  $ curl -v -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/test/
+
 
 Retrieve application
 
@@ -121,5 +129,22 @@ Retrieve application
 
   $ curl -v -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/applications/
 
+
+Update application
+
+::
+
+  $ curl -v -X PUT -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/applications/ID -d '{"title": "New title!"}'
+
+or 
+
+::
+  $ curl -v -X PATCH -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/applications/ID
+
+
+Remove application
+
+::
+  $ curl -v -X DELETE -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/applications/ID
 
 Make sure the Application instance is pre-created through the admin or shell
