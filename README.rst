@@ -9,7 +9,12 @@ REST Example
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
      :target: https://github.com/ambv/black
      :alt: Black code style
-
+.. image:: https://gitlab.com/vladimirmyshkovski/rest_example/badges/master/build.svg
+    :target: https://gitlab.com/vladimirmyshkovski/rest_example/pipelines
+    :alt: GitLab pipeline build
+.. image:: https://gitlab.com/vladimirmyshkovski/rest_example/badges/master/coverage.svg
+    :target: https://gitlab.com/vladimirmyshkovski/rest_example/pipelines
+    :alt: GitLab coverage
 
 :License: MIT
 
@@ -80,6 +85,13 @@ The following details how to deploy this application.
 ::
 
   $ make build && make migrations && make up
+
+Type before every commit
+
+::
+
+  $ make pre-commit
+
 
 Deployment
 ----------
