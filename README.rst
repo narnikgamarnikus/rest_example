@@ -99,20 +99,27 @@ Registration
 
 ::
 
-  $ curl -X POST -H "Content-Type: application/json" http://localhost:8000/api/v1/auth/registration/ -d '{"username": "testusername", "email": "test@email.com", "password1": "testpassword", "password2": "testpassword"}'
+  $ curl -X POST -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/auth/registration/ -d '{"username": "testusername", "email": "test@email.com", "password1": "testpassword", "password2": "testpassword"}'
 
 
 Login 
 
 ::
 
-  $ curl -H "Content-Type: application/json" http://localhost:8000/api/v1/auth/login/ -d '{"username": "testusername", "password": "testpassword"}'
+  $ curl -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/auth/login/ -d '{"username": "testusername", "password": "testpassword"}'
 
 
-Getting application by API KEY
+Create new application
 
 ::
  
-  $ curl -H "Content-Type: application/json" http://localhost:8000/api/v1/test/?api_key=API_KEY
+  $ curl -X POST -v -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/applications/ -d '{"title": "Hello, World!"}'
+
+Retrieve application
+
+::
+
+  $ curl -v -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/applications/
+
 
 Make sure the Application instance is pre-created through the admin or shell
