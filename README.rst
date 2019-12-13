@@ -151,12 +151,14 @@ Update application
 or 
 
 ::
+
   $ curl -v -X PATCH -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/applications/YOUR_APPLICATION_ID
 
 
 Remove application
 
 ::
+
   $ curl -v -X DELETE -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/applications/YOUR_APPLICATION_ID
 
 Make sure the Application instance is pre-created through the admin or shell
