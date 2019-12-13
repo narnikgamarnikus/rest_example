@@ -1,4 +1,4 @@
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_200_OK
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -10,7 +10,7 @@ from rest_example.applications.permissions import ApplicationAPIKeyPermission
 from annoying.functions import get_object_or_None
 
 
-class ApplicationViewSet(GenericViewSet):
+class ApplicationViewSet(ModelViewSet):
     """
     A simple ViewSet for viewing Application's.
     """
@@ -21,7 +21,7 @@ class ApplicationViewSet(GenericViewSet):
 
     @action(detail=False, methods=["get"])
     def test(self, request):
-        api_key = request.query_params.get("api_key", None)
+        api_key = request.META.get("api_key", None)
         instance = get_object_or_None(Application, api_key=api_key)
         if instance:
             serializer = self.get_serializer(instance)
