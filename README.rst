@@ -86,6 +86,13 @@ The following details how to deploy this application.
 
   $ make build && make migrations && make up
 
+Type before every commit
+
+::
+
+  $ make pre-commit
+
+
 Deployment
 ----------
 
