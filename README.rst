@@ -31,7 +31,7 @@ Setting Up Your Users
 
 * To create an **superuser account**, use this command::
 
-    $ python manage.py createsuperuser
+    $ make superuser
 
 For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
 
@@ -42,32 +42,21 @@ Running type checks with mypy:
 
 ::
 
-  $ mypy rest_example
+  $ make mypy
 
 Test coverage
 ^^^^^^^^^^^^^
 
 To run the tests, check your test coverage, and generate an HTML coverage report::
 
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
+    $ make coverage && open htmlcov/index.html
 
 Running tests with py.test
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ::
 
-  $ pytest
-
-Live reloading and Sass CSS compilation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Moved to `Live reloading and SASS compilation`_.
-
-.. _`Live reloading and SASS compilation`: http://cookiecutter-django.readthedocs.io/en/latest/live-reloading-and-sass-compilation.html
-
-
+  $ make test
 
 
 Email Server
@@ -83,20 +72,47 @@ With MailHog running, to view messages that are sent by your application, open y
 .. _mailhog: https://github.com/mailhog/MailHog
 
 
+Development
+----------
+
+The following details how to deploy this application.
+
+::
+
+  $ make build && make migrations && make up
 
 Deployment
 ----------
 
 The following details how to deploy this application.
 
+::
+
+  $ export ENVIRONMENT=production
+  $ make start
 
 
-Docker
-^^^^^^
+API usage
+----------
 
-See detailed `cookiecutter-django Docker documentation`_.
+Registration
 
-.. _`cookiecutter-django Docker documentation`: http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html
+::
+
+  $ curl -X POST -H "Content-Type: application/json" http://localhost:8000/api/v1/auth/registration/ -d '{"username": "testusername", "email": "test@email.com", "password1": "testpassword", "password2": "testpassword"}'
 
 
+Login 
 
+::
+
+  $ curl -H "Content-Type: application/json" http://localhost:8000/api/v1/auth/login/ -d '{"username": "testusername", "password": "testpassword"}'
+
+
+Getting application by API KEY
+
+::
+ 
+  $ curl -H "Content-Type: application/json" http://localhost:8000/api/v1/test/?api_key=API_KEY
+
+Make sure the Application instance is pre-created through the admin or shell

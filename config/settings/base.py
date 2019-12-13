@@ -74,7 +74,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "rest_example.users.apps.UsersConfig",
-    # Your stuff: custom apps go here
+    "rest_example.applications.apps.ApplicationsConfig"
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -297,7 +297,7 @@ CORS_ORIGIN_WHITELIST = (
 # https://github.com/encode/django-rest-framework
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
