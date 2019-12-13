@@ -7,7 +7,7 @@ from rest_example.applications.serializers import ApplicationSerializer
 
 class ApplicationAPIKeyAuthentication(BaseAuthentication):
     def authenticate(self, request):
-        api_key = request.META.get('API_KEY', None)
+        api_key = request.META.get('HTTP_API_KEY', None)
         if not api_key:
         	return None
 
