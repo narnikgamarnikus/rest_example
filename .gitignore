@@ -274,4 +274,4 @@ rest_example/media/
 
 .ipython/
 .env
-.envs/*
+.envs/.production/*
