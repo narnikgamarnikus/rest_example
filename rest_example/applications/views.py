@@ -30,12 +30,10 @@ class TestApplicationView(APIView):
         """
         Return application by api_key in HEADERS.
         """
-        api_key = request.META.get("HTTP_API_KEY", None)
-        instance = get_object_or_None(Application, api_key=api_key)
-        if instance:
-            serializer = ApplicationSerializer(instance)
-            return Response(serializer.data, status=HTTP_200_OK)
-        return Response({"message": "Application not found"}, status=HTTP_404_NOT_FOUND)
+    	api_key = request.META.get("HTTP_API_KEY", None)
+    	obj = get_object_or_404(Application, api_key=api_key)
+        serializer = ApplicationSerializer(obj)
+        return Response(serializer.data, status=HTTP_200_OK)
 
 
 class ApplicationViewSet(
@@ -61,5 +59,5 @@ class ApplicationViewSet(
 
     def list(self, request):
         obj = self.get_object()
-        serializer = ApplicationSerializer(instance)
+        serializer = ApplicationSerializer(obj)
         return Response(serializer.data, status=HTTP_200_OK)
