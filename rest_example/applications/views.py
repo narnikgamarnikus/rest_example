@@ -1,5 +1,11 @@
 from rest_framework.views import APIView
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.mixins import (
+    CreateModelMixin,
+    RetrieveModelMixin,
+    UpdateModelMixin,
+    DestroyModelMixin,
+)
+from rest_framework.viewsets import GenericViewSet
 from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_200_OK
 from rest_framework.response import Response
 
@@ -32,11 +38,25 @@ class TestApplicationView(APIView):
         return Response({"message": "Application not found"}, status=HTTP_404_NOT_FOUND)
 
 
-class ApplicationViewSet(ModelViewSet):
+class ApplicationViewSet(
+    GenericViewSet,
+    CreateModelMixin,
+    RetrieveModelMixin,
+    UpdateModelMixin,
+    DestroyModelMixin,
+):
     """
-    A simple ViewSet for viewing Application's.
+    A viewset that provides `retrieve`, `create`, 'update' actions.
     """
 
     queryset = Application.objects.all()
     serializer_class = ApplicationSerializer
     permission_classes = [ApplicationAPIKeyPermission]
+
+    def list(self, request):
+        api_key = request.META.get("HTTP_API_KEY", None)
+        instance = get_object_or_None(Application, api_key=api_key)
+        if instance:
+            serializer = ApplicationSerializer(instance)
+            return Response(serializer.data, status=HTTP_200_OK)
+        return Response({"message": "Application not found"}, status=HTTP_404_NOT_FOUND)
