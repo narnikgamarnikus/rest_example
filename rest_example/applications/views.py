@@ -53,10 +53,13 @@ class ApplicationViewSet(
     serializer_class = ApplicationSerializer
     permission_classes = [ApplicationAPIKeyPermission]
 
+    def get_object(self):
+    	api_key = request.META.get("HTTP_API_KEY", None)
+    	obj = get_object_or_404(Application, api_key=api_key)
+    	self.check_object_permissions(self.request, obj)
+    	return obj
+
     def list(self, request):
-        api_key = request.META.get("HTTP_API_KEY", None)
-        instance = get_object_or_None(Application, api_key=api_key)
-        if instance:
-            serializer = ApplicationSerializer(instance)
-            return Response(serializer.data, status=HTTP_200_OK)
-        return Response({"message": "Application not found"}, status=HTTP_404_NOT_FOUND)
+        obj = self.get_object()
+        serializer = ApplicationSerializer(instance)
+        return Response(serializer.data, status=HTTP_200_OK)
