@@ -9,7 +9,12 @@ REST Example
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
      :target: https://github.com/ambv/black
      :alt: Black code style
-
+.. image:: https://gitlab.com/vladimirmyshkovski/rest_example/badges/master/build.svg
+    :target: https://gitlab.com/vladimirmyshkovski/rest_example/pipelines
+    :alt: GitLab pipeline build
+.. image:: https://gitlab.com/vladimirmyshkovski/rest_example/badges/master/coverage.svg
+    :target: https://gitlab.com/vladimirmyshkovski/rest_example/pipelines
+    :alt: GitLab coverage
 
 :License: MIT
 
@@ -81,6 +86,13 @@ The following details how to deploy this application.
 
   $ make build && make migrations && make up
 
+Type before every commit
+
+::
+
+  $ make pre-commit
+
+
 Deployment
 ----------
 
@@ -99,20 +111,52 @@ Registration
 
 ::
 
-  $ curl -X POST -H "Content-Type: application/json" http://localhost:8000/api/v1/auth/registration/ -d '{"username": "testusername", "email": "test@email.com", "password1": "testpassword", "password2": "testpassword"}'
+  $ curl -X POST -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/auth/registration/ -d '{"username": "testusername", "email": "test@email.com", "password1": "testpassword", "password2": "testpassword"}'
 
 
 Login 
 
 ::
 
-  $ curl -H "Content-Type: application/json" http://localhost:8000/api/v1/auth/login/ -d '{"username": "testusername", "password": "testpassword"}'
+  $ curl -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/auth/login/ -d '{"username": "testusername", "password": "testpassword"}'
 
 
-Getting application by API KEY
+Create new application
 
 ::
  
-  $ curl -H "Content-Type: application/json" http://localhost:8000/api/v1/test/?api_key=API_KEY
+  $ curl -X POST -v -H "Content-Type: application/json" http://localhost:8000/api/v1/applications/ -d '{"title": "Hello, World!"}'
+
+
+Test application
+
+::
+
+  $ curl -v -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/test/
+
+
+Retrieve application
+
+::
+
+  $ curl -v -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/applications/
+
+
+Update application
+
+::
+
+  $ curl -v -X PUT -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/applications/YOUR_APPLICATION_ID -d '{"title": "New title!"}'
+
+or 
+
+::
+  $ curl -v -X PATCH -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/applications/YOUR_APPLICATION_ID
+
+
+Remove application
+
+::
+  $ curl -v -X DELETE -H "Content-Type: application/json" -H "api-key: API_KEY" http://localhost:8000/api/v1/applications/YOUR_APPLICATION_ID
 
 Make sure the Application instance is pre-created through the admin or shell
