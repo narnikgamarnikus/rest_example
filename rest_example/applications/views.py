@@ -8,14 +8,12 @@ from rest_framework.mixins import (
     DestroyModelMixin,
 )
 from rest_framework.viewsets import GenericViewSet
-from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_200_OK
+from rest_framework.status import HTTP_200_OK
 from rest_framework.response import Response
 
 from rest_example.applications.models import Application
 from rest_example.applications.serializers import ApplicationSerializer
 from rest_example.applications.permissions import ApplicationAPIKeyPermission
-
-from annoying.functions import get_object_or_None
 
 
 class TestApplicationView(APIView):
