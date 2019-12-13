@@ -9,4 +9,6 @@ class ApplicationAPIKeyPermission(BasePermission):
 
     def has_permission(self, request, view):
         api_key = request.META.get("HTTP_API_KEY", None)
+        if request.method == 'POST':
+        	return True
         return Application.objects.filter(api_key=api_key).exists()
